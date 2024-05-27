@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  chat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: chat_ui
+    env_file:
+      - .env
+    ports:
+      - "8507:8507"
+    volumes:
+      - .:/app  
+    working_dir: /app
+    command: ["streamlit", "run", "ui.py", "--server.port", "8507"]
