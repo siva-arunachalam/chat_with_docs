@@ -6,9 +6,9 @@ from llm import handle_user_query
 def display_uploaded_files() -> None:
     """Display the names of the uploaded files."""
     if st.session_state.uploaded_files:
-        st.subheader("Uploaded Documents")
+        st.sidebar.subheader("Uploaded Documents")
         for file in st.session_state.uploaded_files:
-            st.write(file.name)
+            st.sidebar.write(file.name)
 
 def display_chat() -> None:
     """Display the chat interface and handle user queries."""
@@ -33,10 +33,10 @@ def main() -> None:
     # initialize variables
     init_ui()
     
-    uploaded_files = st.file_uploader("Choose documents", type=["txt", "pdf", "docx"], accept_multiple_files=True)
+    uploaded_files = st.sidebar.file_uploader("Choose your documents", type=["txt", "pdf", "docx"], accept_multiple_files=True)
     if uploaded_files:
         st.session_state.uploaded_files, st.session_state.vectorstore = process_uploaded_files(uploaded_files)
-        display_uploaded_files()
+        # display_uploaded_files()
 
         st.header("Chat with the Documents")
         display_chat()
