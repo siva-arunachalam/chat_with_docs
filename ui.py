@@ -16,7 +16,7 @@ def display_chat() -> None:
         with st.chat_message(message['role']):
             st.markdown(message['content'])
 
-def init_ui() -> None:
+def init_state() -> None:
     if "uploaded_files" not in st.session_state:
         st.session_state.uploaded_files = []
     if "vectorstore" not in st.session_state:
@@ -31,7 +31,7 @@ def main() -> None:
     st.title("Document Chat with LLM")
 
     # initialize variables
-    init_ui()
+    init_state()
     
     uploaded_files = st.sidebar.file_uploader("Choose your documents", type=["txt", "pdf", "docx"], accept_multiple_files=True)
     if uploaded_files:
