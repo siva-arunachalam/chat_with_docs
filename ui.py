@@ -34,6 +34,8 @@ def main() -> None:
     init_state()
     
     uploaded_files = st.sidebar.file_uploader("Choose your documents", type=["txt", "pdf", "docx"], accept_multiple_files=True)
+    model_name = st.sidebar.radio("LLM", ["GPT 3.5", "Sonnet 3.5"], 0)
+    
     if uploaded_files:
         st.session_state.uploaded_files, st.session_state.vectorstore = process_uploaded_files(uploaded_files)
         # display_uploaded_files()
@@ -50,7 +52,7 @@ def main() -> None:
                 st.markdown(query)
                             
             with st.chat_message("assistant"):
-                response = st.write_stream(handle_user_query(query, st.session_state.vectorstore))
+                response = st.write_stream(handle_user_query(model_name, query, st.session_state.vectorstore))
             assistant_message = {"role": "assistant", "content": response}
             st.session_state.chat_history.append(assistant_message)
 
